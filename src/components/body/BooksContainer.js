@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBooks } from "../../reduxActions/booksActions";
+import { fetchBooks } from "../../redux/reduxActions/booksActions";
 import BooksHeader from "./BooksHeader";
 import BookCard from "./BookCard";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { fetchBooks } from "../../reduxActions/booksActions";
+import { fetchBooks } from "../../redux/reduxActions/booksActions";
 
 const BooksHeader = () => {
   const dispatch = useDispatch();

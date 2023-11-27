@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchQuery } from "../../reducers/bookSlice";
+import { setSearchQuery } from "../../redux/reducers/bookSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./search.css";
 

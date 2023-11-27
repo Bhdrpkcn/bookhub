@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import greetingReducer from "../reducers/greetingReducer"; 
+import greetingReducer from "../reducers/greetingReducer";
 import bookSlice from "../reducers/bookSlice";
 
 

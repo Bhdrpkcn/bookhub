@@ -2,7 +2,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./greetModal.css";
-import { setUserName, closeGreetModal } from "../reducers/greetingReducer";
+import { setUserName, closeGreetModal } from "../redux/reducers/greetingReducer";
 const GreetModal = ({ onClose }) => {
   const dispatch = useDispatch();
   const userName = useSelector((state) => state.greeting.userName);

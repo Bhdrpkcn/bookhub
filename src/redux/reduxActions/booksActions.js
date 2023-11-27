@@ -3,7 +3,6 @@ import {
   fetchBooksStart,
   fetchBooksSuccess,
   fetchBooksFailure,
-
 } from "../reducers/bookSlice";
 
 export const fetchBooks = createAsyncThunk(
@@ -14,7 +13,6 @@ export const fetchBooks = createAsyncThunk(
 
     const state = getState();
     const searchQuery = state.books.searchQuery;
-
 
     const currentPage = page || 1;
     const itemsPerPage = 240;
