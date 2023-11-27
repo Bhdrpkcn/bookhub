@@ -1,0 +1,54 @@
+.BookCard {
+  display: flex;
+  flex-direction: row;
+  height: 13rem;
+  width: 100%;
+  margin: 0.5rem;
+  background-color: rgb(85, 125, 160);
+}
+
+.bookImg {
+  display: flex;
+  width: 20rem;
+  height: 100%;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
+
+.bookImg img {
+  height: 100%;
+}
+
+.bookName {
+  height: 100%;
+}
+
+.bookCred {
+  display: flex;
+  flex-direction: column;
+  width: calc(15rem + 10vw);
+  justify-content: space-between;
+}
+
+.bookDetails {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+}
+.bookAuthor {
+  font-size: 0.9rem;
+}
+
+.bookYear {
+}
+
+.bookRating {
+}
+
+.bookSynopsis {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: scroll;
+}
