@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchQuery } from "../../redux/reducers/bookSlice";
 import { useNavigate, useLocation } from "react-router-dom";
+import { setSearchQuery } from "../../redux/reducers/bookSlice";
 import "./search.css";
 
 const Search = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const searchQuery = useSelector((state) => state.books.searchQuery);
   const location = useLocation();
+  const searchQuery = useSelector((state) => state.books.searchQuery);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);

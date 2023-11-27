@@ -27,10 +27,10 @@ const booksSlice = createSlice({
     },
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
-
-      console.log("SearchQuery:", action.payload);
-
     },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    }
   },
 });
 
@@ -40,6 +40,7 @@ export const {
   fetchBooksSuccess,
   fetchBooksFailure,
   setSearchQuery,
+  setCurrentPage,
 } = booksSlice.actions;
 
 export default booksSlice.reducer;

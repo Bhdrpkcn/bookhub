@@ -8,27 +8,15 @@ import {
 export const fetchBooks = createAsyncThunk(
   "books/fetchBooks",
 
-  async ({ page }, { getState, dispatch }) => {
+  async (_, { getState, dispatch }) => {
     dispatch(fetchBooksStart());
 
     const state = getState();
-    const searchQuery = state.books.searchQuery;
+    const { searchQuery, currentPage } = state.books;
 
-    const currentPage = page || 1;
-    const itemsPerPage = 240;
+    const itemsPerPage = 20;
 
     const API_URL = `https://example-data.draftbit.com/books?q=${searchQuery}&_page=${currentPage}&_limit=${itemsPerPage}`;
-
-    //not working multiple params :
-    //let API_URL = `https://example-data.draftbit.com/books?q=${query}&_page=${currentPage}&_limit=${itemsPerPage}`;
-
-    // if (category) {
-    //   API_URL += `&category=${category}`;
-    // }
-
-    // if (sortBy && sortOrder) {
-    //   API_URL += `&sortBy=${sortBy}&sortOrder=${sortOrder}`;
-    // }
 
     try {
       const response = await fetch(API_URL);
