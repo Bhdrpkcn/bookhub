@@ -9,7 +9,6 @@ const booksSlice = createSlice({
     searchQuery: "",
     currentPage: 1,
     sortBy: "",
-    sortOrder: "",
   },
 
   reducers: {
@@ -30,7 +29,10 @@ const booksSlice = createSlice({
     },
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
-    }
+    },
+    setSortBy: (state, action) => {
+      state.sortBy = action.payload;
+    },
   },
 });
 
@@ -41,6 +43,7 @@ export const {
   fetchBooksFailure,
   setSearchQuery,
   setCurrentPage,
+  setSortBy,
 } = booksSlice.actions;
 
 export default booksSlice.reducer;

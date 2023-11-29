@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import GreetModal from "./components/GreetModal";
 import Header from "./components/header/Header";
 
+
 function App() {
   const dispatch = useDispatch();
 
@@ -15,6 +16,7 @@ function App() {
   const handleGreetModalClose = () => {
     dispatch({ type: "CLOSE_GREET_MODAL" });
   };
+
 
   return (
     <div className="App">
