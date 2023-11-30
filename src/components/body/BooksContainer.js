@@ -22,7 +22,7 @@ const BooksContainer = () => {
   }, [dispatch, query]);
 
   return (
-    <>
+    <div>
       <BooksHeader />
       <div className="booksContainer">
         {books.loading && <p>Loading...</p>}
@@ -33,7 +33,7 @@ const BooksContainer = () => {
             <BookCard key={book.id || index} book={book} />
           ))}
       </div>
-    </>
+    </div>
   );
 };
 

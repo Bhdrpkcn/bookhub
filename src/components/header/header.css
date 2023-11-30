@@ -1,9 +1,17 @@
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 7vh;
-    width: 100vw;
-    border: 1px solid green;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 7vh;
+  width: 100vw;
+  border: 1px solid green;
+}
+
+.searchBar {
+  width: 60vw;
+}
+
+.ant-btn-primary {
+  background-color: grey;
 }

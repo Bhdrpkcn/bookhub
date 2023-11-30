@@ -1,15 +1,19 @@
 import React from "react";
 import "./body.css";
-import Search from "./Search";
 import Greeting from "./Greeting";
 import BooksContainer from "./BooksContainer";
-
+import SideBar from "./SideBar";
 const Body = () => {
   return (
     <div className="body">
       <Greeting />
-      <Search />
-      <BooksContainer />
+      <div style={{
+        display:"flex",
+        flexDirection:"row"
+      }}>
+        <SideBar />
+        <BooksContainer />
+      </div>
     </div>
   );
 };

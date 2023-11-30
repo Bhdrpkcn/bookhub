@@ -1,6 +1,6 @@
 :root {
-  --mainColor: #255c94;
-  --secColor: salmon;
+  --mainColor: #e1e1e1;
+  --secColor: rgb(40, 40, 40);
 }
 
 html {
