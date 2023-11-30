@@ -20,7 +20,7 @@ export const fetchBooks = createAsyncThunk(
 
     const queryParams = new URLSearchParams();
     queryParams.set("_page", currentPage);
-    queryParams.set("_sortBy", "sortBy");
+    queryParams.set("_sortBy", sortBy);
     queryParams.set("q", searchQuery);
 
     const API_URL = `https://example-data.draftbit.com/books?q=${searchQuery}&_page=${currentPage}&_sort=${sortBy}&_limit=${itemsPerPage}`;
