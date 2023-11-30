@@ -4,6 +4,7 @@ const booksSlice = createSlice({
   name: "books",
   initialState: {
     data: [],
+    favorited: JSON.parse(localStorage.getItem("favorites")) || [],
     loading: false,
     error: null,
     searchQuery: "",
@@ -33,9 +34,26 @@ const booksSlice = createSlice({
     setSortBy: (state, action) => {
       state.sortBy = action.payload;
     },
+    addToFavorites: (state, action) => {
+      const { book } = action.payload;
+      if (!state.favorited.some((favBook) => favBook.id === book.id)) {
+        state.favorited.push(book);
+        localStorage.setItem("favorites", JSON.stringify(state.favorited));
+      }
+    },
+    removeFromFavorites: (state, action) => {
+      const { bookId } = action.payload;
+
+      state.favorited = state.favorited.filter((favBook) => favBook.id !== bookId);
+
+      localStorage.setItem("favorites", JSON.stringify(state.favorited));
+    },
+    removeAllFavorites: (state) => {
+      state.favorited = [];
+      localStorage.removeItem("favorites"); 
+    },
   },
 });
-
 
 export const {
   fetchBooksStart,
@@ -44,6 +62,9 @@ export const {
   setSearchQuery,
   setCurrentPage,
   setSortBy,
+  addToFavorites,
+  removeFromFavorites,
+  removeAllFavorites,
 } = booksSlice.actions;
 
 export default booksSlice.reducer;

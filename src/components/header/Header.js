@@ -9,7 +9,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { fetchBooks } from "..//..//redux/reduxActions/booksActions";
-
 import { Input } from "antd";
 
 const Header = () => {
@@ -47,9 +46,6 @@ const Header = () => {
     resetStateToDefault();
   };
 
-  useEffect(() => {
-    resetStateToDefault();
-  }, [dispatch]);
 
   return (
     <div className="header">
@@ -61,7 +57,6 @@ const Header = () => {
         placeholder="input search loading with enterButton"
         enterButton
       />
-
       <User />
     </div>
   );
