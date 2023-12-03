@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../../redux/reduxActions/booksActions";
 import BooksHeader from "./BooksHeader";
 import BookCard from "./BookCard";
+import { FloatButton } from "antd";
 
 const BooksContainer = () => {
   const dispatch = useDispatch();
@@ -24,14 +25,17 @@ const BooksContainer = () => {
   return (
     <div>
       <BooksHeader />
-      <div className="booksContainer">
-        {books.loading && <p>Loading...</p>}
-        {books.error && <p>Error: {books.error}</p>}
-        {!books.loading &&
-          !books.error &&
-          books.data.map((book, index) => (
-            <BookCard key={book.id || index} book={book} />
-          ))}
+      <div>
+        <div className="booksContainer">
+          {books.loading && <p>Loading...</p>}
+          {books.error && <p>Error: {books.error}</p>}
+          {<FloatButton.BackTop />}
+          {!books.loading &&
+            !books.error &&
+            books.data.map((book, index) => (
+              <BookCard key={book.id || index} book={book} />
+            ))}
+        </div>
       </div>
     </div>
   );
