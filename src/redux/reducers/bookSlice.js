@@ -10,6 +10,7 @@ const booksSlice = createSlice({
     searchQuery: "",
     currentPage: 1,
     sortBy: "",
+    displayFavorites: false,
   },
 
   reducers: {
@@ -36,21 +37,29 @@ const booksSlice = createSlice({
     },
     addToFavorites: (state, action) => {
       const { book } = action.payload;
-      if (!state.favorited.some((favBook) => favBook.id === book.id)) {
-        state.favorited.push(book);
+      const bookId = book.id;
+
+      if (!state.favorited.includes(bookId)) {
+        state.favorited.push(bookId);
         localStorage.setItem("favorites", JSON.stringify(state.favorited));
       }
     },
+
     removeFromFavorites: (state, action) => {
       const { bookId } = action.payload;
 
-      state.favorited = state.favorited.filter((favBook) => favBook.id !== bookId);
+      state.favorited = state.favorited.filter(
+        (favBook) => favBook.id !== bookId
+      );
 
       localStorage.setItem("favorites", JSON.stringify(state.favorited));
     },
     removeAllFavorites: (state) => {
       state.favorited = [];
-      localStorage.removeItem("favorites"); 
+      localStorage.removeItem("favorites");
+    },
+    setDisplayFavorites: (state) => {
+      state.displayFavorites = !state.displayFavorites;
     },
   },
 });
@@ -65,6 +74,7 @@ export const {
   addToFavorites,
   removeFromFavorites,
   removeAllFavorites,
+  setDisplayFavorites,
 } = booksSlice.actions;
 
 export default booksSlice.reducer;
