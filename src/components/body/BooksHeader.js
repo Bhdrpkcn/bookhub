@@ -25,7 +25,7 @@ const BooksHeader = () => {
 
   const handleSortByRating = () => {
     const queryParams = new URLSearchParams(location.search);
-    const newSort = "rating&_order=desc"; //add order=asc for lowest rating first
+    const newSort = "rating&_order=desc"; //added order=asc for lowest rating first
 
     dispatch(setSortBy(newSort));
 

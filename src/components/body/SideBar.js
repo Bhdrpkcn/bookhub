@@ -7,9 +7,7 @@ import {
 } from "../../redux/reducers/bookSlice";
 const SideBar = () => {
   const dispatch = useDispatch();
-  const displayFavorites = useSelector(
-    (state) => state.books.displayFavorites
-  );
+  const displayFavorites = useSelector((state) => state.books.displayFavorites);
 
   const handleClearLocalStorage = () => {
     dispatch(removeAllFavorites());

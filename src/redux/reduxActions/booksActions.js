@@ -11,38 +11,41 @@ export const fetchBooks = createAsyncThunk(
   "books/fetchBooks",
 
   async (_, { getState, dispatch }) => {
-    dispatch(fetchBooksStart());
-
-    const state = getState();
-    const { searchQuery, currentPage, sortBy } = state.books;
-
-    const itemsPerPage = 20;
-
-    const queryParams = new URLSearchParams();
-    queryParams.set("_page", currentPage);
-    queryParams.set("_sortBy", sortBy);
-    queryParams.set("q", searchQuery);
-
-    const API_URL = `https://example-data.draftbit.com/books?q=${searchQuery}&_page=${currentPage}&_sort=${sortBy}&_limit=${itemsPerPage}`;
-
     try {
+      dispatch(fetchBooksStart());
+
+      const state = getState();
+      const { searchQuery, currentPage, sortBy, displayFavorites } =
+        state.books;
+
+      const itemsPerPage = 10;
+
+      const queryParams = new URLSearchParams();
+      queryParams.set("_page", currentPage);
+      queryParams.set("_sortBy", sortBy);
+      queryParams.set("q", searchQuery);
+
+      const API_URL = `https://example-data.draftbit.com/books?q=${searchQuery}&_page=${currentPage}&_sort=${sortBy}&_limit=${itemsPerPage}`;
+
       const response = await fetch(API_URL);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
       const data = await response.json();
 
-      console.log(
-        "sort:",
-        sortBy,
-        "page:",
-        currentPage,
-        "search",
-        searchQuery,
-        "API Data:",
-        data
-      );
-
-      dispatch(setCurrentPage(currentPage));
-      dispatch(setSortBy(sortBy));
-      dispatch(fetchBooksSuccess(data));
+      if (displayFavorites) {
+        const favoritedIds = state.books.favorited.join(",");
+        const favoritesData = data.filter((book) =>
+          favoritedIds.includes(book.id)
+        );
+        dispatch(fetchBooksSuccess(favoritesData));
+      } else {
+        dispatch(setCurrentPage(currentPage));
+        dispatch(setSortBy(sortBy));
+        dispatch(fetchBooksSuccess(data));
+      }
 
       return data;
     } catch (error) {

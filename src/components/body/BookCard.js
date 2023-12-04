@@ -16,9 +16,9 @@ const BookCard = ({ book }) => {
   const handleAddToFavorite = () => {
     dispatch(addToFavorites({ book }));
   };
-  //not working FIX IT !
+
   const handleClearFavorite = () => {
-    dispatch(removeFromFavorites());
+    dispatch(removeFromFavorites({ book }));
   };
 
   return (

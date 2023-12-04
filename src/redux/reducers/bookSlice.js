@@ -46,12 +46,12 @@ const booksSlice = createSlice({
     },
 
     removeFromFavorites: (state, action) => {
-      const { bookId } = action.payload;
+      const { book } = action.payload;
+      const bookId = book.id;
 
       state.favorited = state.favorited.filter(
-        (favBook) => favBook.id !== bookId
+        (favBookId) => favBookId !== bookId
       );
-
       localStorage.setItem("favorites", JSON.stringify(state.favorited));
     },
     removeAllFavorites: (state) => {
