@@ -23,10 +23,8 @@ export const fetchBooks = createAsyncThunk(
       let API_URL;
 
       if (displayFavorites) {
-        // Fetch all favorited items, ignoring pagination
         API_URL = `https://example-data.draftbit.com/books?q=${searchQuery}&_sort=${sortBy}`;
       } else {
-        // Fetch based on pagination and other parameters
         API_URL = `https://example-data.draftbit.com/books?q=${searchQuery}&_page=${currentPage}&_sort=${sortBy}&_limit=${itemsPerPage}`;
       }
 

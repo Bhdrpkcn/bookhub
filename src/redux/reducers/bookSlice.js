@@ -5,6 +5,8 @@ const booksSlice = createSlice({
   initialState: {
     data: [],
     favorited: JSON.parse(localStorage.getItem("favorites")) || [],
+    favGenres: JSON.parse(localStorage.getItem("favGenres")) || [],
+    genreCount: {}, 
     loading: false,
     error: null,
     searchQuery: "",
@@ -35,6 +37,9 @@ const booksSlice = createSlice({
     setSortBy: (state, action) => {
       state.sortBy = action.payload;
     },
+    setDisplayFavorites: (state) => {
+      state.displayFavorites = !state.displayFavorites;
+    },
     addToFavorites: (state, action) => {
       const { book } = action.payload;
       const bookTitle = book.title;
@@ -42,6 +47,19 @@ const booksSlice = createSlice({
       if (!state.favorited.includes(bookTitle)) {
         state.favorited.push(bookTitle);
         localStorage.setItem("favorites", JSON.stringify(state.favorited));
+
+
+        const genres = book.genre_list.split(",");
+        state.favGenres.push(...genres);
+        localStorage.setItem("favGenres", JSON.stringify(state.favGenres));
+
+
+        updateGenreCount(state);
+
+
+        console.log("Updated favorited array:", state.favorited);
+        console.log("Updated favGenres array:", state.favGenres.slice()); // Convert to plain array
+        console.log("Genre count:", state.genreCount);
       }
     },
 
@@ -53,13 +71,28 @@ const booksSlice = createSlice({
         (favBookTitle) => favBookTitle !== bookTitle
       );
       localStorage.setItem("favorites", JSON.stringify(state.favorited));
+
+
+      const genresToRemove = book.genre_list.split(",");
+      state.favGenres = state.favGenres.filter(
+        (genre) => !genresToRemove.includes(genre)
+      );
+      localStorage.setItem("favGenres", JSON.stringify(state.favGenres));
+
+
+      updateGenreCount(state);
+
+
+      console.log("Updated favorited array:", state.favorited);
+      console.log("Updated favGenres array:", state.favGenres.slice()); // Convert to plain array
+      console.log("Genre count:", state.genreCount);
     },
+
     removeAllFavorites: (state) => {
       state.favorited = [];
+      state.favGenres = []; 
       localStorage.removeItem("favorites");
-    },
-    setDisplayFavorites: (state) => {
-      state.displayFavorites = !state.displayFavorites;
+      localStorage.removeItem("favGenres");
     },
   },
 });
@@ -78,3 +111,9 @@ export const {
 } = booksSlice.actions;
 
 export default booksSlice.reducer;
+
+const updateGenreCount = (state) => {
+  state.genreCount = state.favGenres.reduce((count, genre) => {
+    count[genre] = (count[genre] || 0) + 1;
+    return count;
+  }, {})};

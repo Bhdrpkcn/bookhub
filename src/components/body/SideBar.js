@@ -15,13 +15,11 @@ const SideBar = () => {
     dispatch(removeAllFavorites());
   };
 
-  //Show favorites working now but only displays that the stored item within its page !! 
   const showFavorites = () => {
     dispatch(setDisplayFavorites());
   };
 
   useEffect(() => {
-    // Refetch books when displayFavorites changes
     dispatch(fetchBooks());
   }, [displayFavorites, dispatch]);
 

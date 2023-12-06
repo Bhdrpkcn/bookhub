@@ -5,13 +5,13 @@ import {
   removeFromFavorites,
 } from "../../redux/reducers/bookSlice";
 import { SearchOutlined, PlusOutlined, MinusOutlined } from "@ant-design/icons";
-// import "./bookCard.scss";
+
 import "./bookCard.css";
 
 const BookCard = ({ books, book }) => {
   const dispatch = useDispatch();
   const favoritedArray = useSelector((state) => state.books.favorited || []);
-  console.log("Favorited default:", favoritedArray);
+  // console.log("Favorited default:", favoritedArray);
 
   const handleAddToFavorite = () => {
     dispatch(addToFavorites({ book }));
