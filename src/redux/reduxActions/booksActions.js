@@ -20,12 +20,15 @@ export const fetchBooks = createAsyncThunk(
 
       const itemsPerPage = 10;
 
-      const queryParams = new URLSearchParams();
-      queryParams.set("_page", currentPage);
-      queryParams.set("_sortBy", sortBy);
-      queryParams.set("q", searchQuery);
+      let API_URL;
 
-      const API_URL = `https://example-data.draftbit.com/books?q=${searchQuery}&_page=${currentPage}&_sort=${sortBy}&_limit=${itemsPerPage}`;
+      if (displayFavorites) {
+        // Fetch all favorited items, ignoring pagination
+        API_URL = `https://example-data.draftbit.com/books?q=${searchQuery}&_sort=${sortBy}`;
+      } else {
+        // Fetch based on pagination and other parameters
+        API_URL = `https://example-data.draftbit.com/books?q=${searchQuery}&_page=${currentPage}&_sort=${sortBy}&_limit=${itemsPerPage}`;
+      }
 
       const response = await fetch(API_URL);
 
@@ -36,10 +39,11 @@ export const fetchBooks = createAsyncThunk(
       const data = await response.json();
 
       if (displayFavorites) {
-        const favoritedIds = state.books.favorited.join(",");
+        const favoritedTitles = state.books.favorited;
         const favoritesData = data.filter((book) =>
-          favoritedIds.includes(book.id)
+          favoritedTitles.includes(book.title)
         );
+
         dispatch(fetchBooksSuccess(favoritesData));
       } else {
         dispatch(setCurrentPage(currentPage));

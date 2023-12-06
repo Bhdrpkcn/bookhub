@@ -37,20 +37,20 @@ const booksSlice = createSlice({
     },
     addToFavorites: (state, action) => {
       const { book } = action.payload;
-      const bookId = book.id;
+      const bookTitle = book.title;
 
-      if (!state.favorited.includes(bookId)) {
-        state.favorited.push(bookId);
+      if (!state.favorited.includes(bookTitle)) {
+        state.favorited.push(bookTitle);
         localStorage.setItem("favorites", JSON.stringify(state.favorited));
       }
     },
 
     removeFromFavorites: (state, action) => {
       const { book } = action.payload;
-      const bookId = book.id;
+      const bookTitle = book.title;
 
       state.favorited = state.favorited.filter(
-        (favBookId) => favBookId !== bookId
+        (favBookTitle) => favBookTitle !== bookTitle
       );
       localStorage.setItem("favorites", JSON.stringify(state.favorited));
     },

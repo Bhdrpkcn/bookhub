@@ -1,12 +1,10 @@
-:root {
-  --mainColor: #e1e1e1;
-  --secColor: rgb(40, 40, 40);
-}
-
 html {
-  background-color: var(--mainColor);
+  background: linear-gradient(to bottom, #e1e1e1, #c3c3c3);
 }
 
 .App {
-  color: var(--secColor);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
 }

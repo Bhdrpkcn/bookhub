@@ -5,11 +5,11 @@
   align-items: center;
   height: 7vh;
   width: 100vw;
-  border: 1px solid green;
+  background-color: rgb(149, 149, 149);
 }
 
 .searchBar {
-  width: 60vw;
+  width: 60%;
 }
 
 .ant-btn-primary {
