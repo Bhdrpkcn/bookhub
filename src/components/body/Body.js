@@ -1,6 +1,5 @@
 import React from "react";
-import "./body.css";
-import Greeting from "./Greeting";
+import "../style.css";
 import BooksContainer from "./BooksContainer";
 import SideBar from "./SideBar";
 const Body = () => {
@@ -9,7 +8,7 @@ const Body = () => {
   return (
     <div className="body">
       {/* <Greeting /> */}
-      <SideBar />
+      {/* <SideBar /> */}
       <BooksContainer />
     </div>
   );

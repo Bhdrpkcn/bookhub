@@ -58,7 +58,7 @@ const booksSlice = createSlice({
 
 
         console.log("Updated favorited array:", state.favorited);
-        console.log("Updated favGenres array:", state.favGenres.slice()); // Convert to plain array
+        console.log("Updated favGenres array:", state.favGenres.slice());
         console.log("Genre count:", state.genreCount);
       }
     },

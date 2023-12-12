@@ -18,14 +18,12 @@ export const fetchBooks = createAsyncThunk(
       const { searchQuery, currentPage, sortBy, displayFavorites } =
         state.books;
 
-      const itemsPerPage = 10;
+      const itemsPerPage = 20;
 
-      let API_URL;
+      let API_URL = `https://example-data.draftbit.com/books?q=${searchQuery}&_sort=${sortBy}`;
 
-      if (displayFavorites) {
-        API_URL = `https://example-data.draftbit.com/books?q=${searchQuery}&_sort=${sortBy}`;
-      } else {
-        API_URL = `https://example-data.draftbit.com/books?q=${searchQuery}&_page=${currentPage}&_sort=${sortBy}&_limit=${itemsPerPage}`;
+      if (!displayFavorites) {
+       API_URL =`${API_URL}&_page=${currentPage}&_limit=${itemsPerPage}`;
       }
 
       const response = await fetch(API_URL);
