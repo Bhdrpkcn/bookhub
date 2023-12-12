@@ -7,6 +7,7 @@ import {
   setSortBy,
 } from "../reducers/bookSlice";
 
+export const itemsPerPage = 20;
 export const fetchBooks = createAsyncThunk(
   "books/fetchBooks",
 
@@ -18,7 +19,7 @@ export const fetchBooks = createAsyncThunk(
       const { searchQuery, currentPage, sortBy, displayFavorites } =
         state.books;
 
-      const itemsPerPage = 20;
+
 
       let API_URL = `https://example-data.draftbit.com/books?q=${searchQuery}&_sort=${sortBy}`;
 

@@ -10,39 +10,16 @@ import {
 } from "../../redux/reducers/bookSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Input, Dropdown, Button, Menu, Badge } from "antd";
-
+import { Dropdown, Button, Menu, Badge } from "antd";
+import ChattingGhost from "./ChattingGhost";
 const Header = () => {
-  const { Search } = Input;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const searchQuery = useSelector((state) => state.books.searchQuery);
-  const currentPage = useSelector((state) => state.books.currentPage);
   const displayFavorites = useSelector((state) => state.books.displayFavorites);
   const favoritedCount = useSelector((state) => state.books.favorited.length);
 
-  const handleInputChange = (e) => {
-    const newSearchQuery = e.target.value;
-
-    dispatch(setSearchQuery(newSearchQuery));
-
-    navigate(`?q=${encodeURIComponent(newSearchQuery)}`);
-  };
-
-  const handlePageChange = () => {
-    const queryParams = new URLSearchParams(location.search);
-    const nextPage = currentPage + 1;
-
-    dispatch(setCurrentPage(nextPage));
-
-    queryParams.set("_page", String(nextPage));
-
-    navigate(`?${queryParams.toString()}`);
-
-    dispatch(fetchBooks());
-  };
-
+  
   const handleSortByRating = () => {
     const queryParams = new URLSearchParams(location.search);
     const newSort = "rating&_order=desc"; //added order=asc for lowest rating first
@@ -130,23 +107,14 @@ const Header = () => {
     </Menu>
   );
 
+
   return (
     <div className="headers">
       <div className="headerBar">
         <div style={{ cursor: "pointer" }} onClick={homeHandler}>
           BookHUB
         </div>
-        {/* <Search
-          className="searchBar"
-          style={{
-            width: "40vw",
-          }}
-          value={searchQuery}
-          onChange={handleInputChange}
-          placeholder="find your books !"
-          enterButton
-        /> */}
-
+        <ChattingGhost />
         <User />
       </div>
       <div className="secHeaderBar">
@@ -178,8 +146,3 @@ const Header = () => {
 };
 
 export default Header;
-
-{
-  /* <button onClick={handlePageChange}>Load Next Page</button>
-<button onClick={handleSortByRating}>Sort By Rating</button> */
-}

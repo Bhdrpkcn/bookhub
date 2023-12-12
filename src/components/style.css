@@ -16,10 +16,9 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(3px); 
+  filter: blur(3px);
   z-index: -1;
 }
-
 
 .headers {
   display: flex;
@@ -30,8 +29,8 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 10vh;
-  background-color: rgba(0, 0, 0, 0.7); 
+  height: 15vh;
+  background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(5px);
   color: #fff;
   justify-content: space-between;
@@ -44,7 +43,7 @@
   justify-content: flex-end;
   width: 100%;
   height: 5vh;
-  background-color: rgba(48, 48, 48, 0.2); 
+  background-color: rgba(48, 48, 48, 0.2);
   backdrop-filter: blur(5px);
 
   color: #fff;
@@ -66,25 +65,15 @@
 .book-container {
   display: flex;
   flex-wrap: wrap;
-  height: 77vh;
+  height: 73vh;
   width: 100vw;
+  margin-top: 1rem;
   align-items: center;
   justify-content: center;
   overflow: scroll;
 }
 .book-container::-webkit-scrollbar {
   display: none;
-  }
-
-.booksHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  height: 5vh;
-  z-index: 1;
-  background-color: #bebebe;
 }
 
 .sidebar {
@@ -105,13 +94,40 @@
 
 .footer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   z-index: 2;
   bottom: 0;
   justify-content: center;
   align-items: center;
   height: 7vh;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
+}
+
+.footerContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ant-pagination-item a {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: rgb(75, 75, 75);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ant-pagination-item a:hover,
+.ant-pagination-item a:disabled {
+  background-color: #fff;
+  color: #2c2c2c;
+}
+.ant-pagination .ant-pagination-item-active a {
+  color: #fff;
+}
+
+.ant-pagination .ant-pagination-item-active {
+  font-weight: 600;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-color: #fff;
 }

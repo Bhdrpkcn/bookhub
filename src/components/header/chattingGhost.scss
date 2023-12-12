@@ -1,0 +1,136 @@
+$bg: #333;
+
+#container {
+  scale: 0.8;
+  position: relative;
+}
+
+input[type="text"] {
+  padding: 0.5em;
+  border: none;
+  border-radius: 0.5em;
+  background: gray;
+  transition: 1s;
+  font-size: 20px;
+
+  &:focus {
+    background: #fff;
+  }
+  &::placeholder {
+    color: rgba(black, 0.5);
+  }
+}
+
+input[type="text"]:focus {
+  & + .ghost {
+    background: rgba(white, 0.2);
+    color: transparent;
+    .ghost__torso {
+      transform: translate(-50%, 42px) scaleY(0.9);
+    }
+    .ghost__eyes * {
+      background: rgba(white, 0.6);
+    }
+    .ghost__face {
+      transform: translate(-50%, 0.4em);
+    }
+    .ghost__mouth {
+      transform: scaleY(0.6);
+      border-color: rgba(white, 0.6);
+    }
+
+    .ghost__legs {
+      border-bottom-left-radius: 2em;
+      border-bottom-right-radius: 0.6em;
+      transform: translateX(-50%) scaleY(0.85);
+      transform-origin: top;
+    }
+  }
+}
+
+// ghost
+#container {
+  @keyframes float {
+    from {
+      transform: translateY(1.5em);
+    }
+    to {
+      transform: translateY(0.8em);
+    }
+  }
+  animation: float 3s infinite alternate;
+}
+
+.ghost {
+  background: white;
+  color: white;
+  * {
+    transition: all 0.3s;
+  }
+  & > * {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%);
+  }
+}
+
+.ghost__face {
+  margin-bottom: 1em;
+  background: none;
+
+  .ghost__eyes {
+    &-l,
+    &-r {
+      width: 0.8em;
+      height: 0.8em;
+      background: $bg;
+      border-radius: 100%;
+      position: absolute;
+      bottom: 0.4em;
+    }
+
+    &-l {
+      right: 1em;
+    }
+    &-r {
+      left: 1em;
+    }
+  }
+
+  .ghost__mouth {
+    width: 0.5em;
+    height: 0.3em;
+    border-radius: 50px;
+    border: 0.2em solid $bg;
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+
+    &--open {
+      border-top: 0.2em solid $bg;
+      height: 0.2em;
+    }
+  }
+}
+
+.ghost__torso {
+  width: 5em;
+  height: 7em;
+  background: inherit;
+  border-radius: 100px;
+  box-shadow: 0 0 12px rgba(#424242, 1);
+  transition: all 0.4s;
+  transform: translate(-50%, 50px);
+  z-index: -1;
+}
+
+.ghost__legs {
+  width: 5em;
+  height: 1.5em;
+  top: 100%;
+  background: inherit;
+  box-shadow: 0 0 12px rgba(#424242, 1);
+  border-bottom-left-radius: 0.4em;
+  border-bottom-right-radius: 0.4em;
+}
