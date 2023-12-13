@@ -27,14 +27,12 @@
   transition: filter 0.2s ease-in-out;
 }
 
-/* Open card styles */
 .book-card.open .book-image img {
   scale: 1.8;
-  filter:contrast(.5) blur(3px);
-  transition: all .5s;
+  filter: contrast(0.5) blur(3px);
+  transition: all 0.5s;
 }
 
-/* Book details styles */
 .book-details {
   padding: 10px;
 }
@@ -43,7 +41,6 @@
   margin-bottom: 0;
 }
 
-/* Overlay styles */
 .overlay {
   display: flex;
   position: absolute;
@@ -67,7 +64,6 @@
 .book-description::-webkit-scrollbar {
   display: none;
 }
-
 
 .book-actions {
   display: flex;

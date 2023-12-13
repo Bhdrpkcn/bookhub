@@ -7,19 +7,24 @@ import {
   setSortBy,
   removeAllFavorites,
   setDisplayFavorites,
+  setDisplayRecommended,
 } from "../../redux/reducers/bookSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Dropdown, Button, Menu, Badge } from "antd";
+import { Button, Badge } from "antd";
 import ChattingGhost from "./ChattingGhost";
+import Logo from "../../utils/logo.png";
+
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const displayFavorites = useSelector((state) => state.books.displayFavorites);
+  const displayRecommended = useSelector(
+    (state) => state.books.displayRecommended
+  );
   const favoritedCount = useSelector((state) => state.books.favorited.length);
 
-  
   const handleSortByRating = () => {
     const queryParams = new URLSearchParams(location.search);
     const newSort = "rating&_order=desc"; //added order=asc for lowest rating first
@@ -46,74 +51,26 @@ const Header = () => {
     dispatch(fetchBooks());
   }, [location.search, dispatch]);
 
-  const resetStateToDefault = () => {
+  const homeHandler = () => {
     dispatch(setCurrentPage(1));
     dispatch(setSearchQuery(""));
     dispatch(setSortBy(""));
     navigate(`/`);
-
-    dispatch(fetchBooks());
-  };
-
-  const homeHandler = () => {
-    resetStateToDefault();
-  };
-
-  //move this into BookCard top.
-  const handleClearLocalStorage = () => {
     dispatch(removeAllFavorites());
+    dispatch(fetchBooks());
   };
 
   const showFavorites = () => {
     dispatch(setDisplayFavorites());
   };
-
-  const items = [
-    {
-      key: "1",
-      onclick: { handleSortByRating },
-      label: <div onClick={handleSortByRating}>order</div>,
-    },
-    {
-      key: "2",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.aliyun.com"
-        >
-          2nd menu item
-        </a>
-      ),
-    },
-    {
-      key: "3",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.luohanacademy.com"
-        >
-          3rd menu item
-        </a>
-      ),
-    },
-  ];
-
-  const orderMenu = (
-    <Menu onClick={handleSortByRating}>
-      <Menu.Item key="asc">Ascending</Menu.Item>
-      <Menu.Item key="desc">Descending</Menu.Item>
-    </Menu>
-  );
-
+  const showRecommended = async () => {
+    dispatch(setDisplayRecommended());
+  };
 
   return (
     <div className="headers">
       <div className="headerBar">
-        <div style={{ cursor: "pointer" }} onClick={homeHandler}>
-          BookHUB
-        </div>
+        <img src={Logo} alt="bookLogo" className="homeLogo" onClick={homeHandler} />
         <ChattingGhost />
         <User />
       </div>
@@ -130,16 +87,14 @@ const Header = () => {
         )}
         {displayFavorites && <Button onClick={showFavorites}>Show All</Button>}
 
-        <div>Recommend</div>
-        <Dropdown
-          menu={{ items }}
-          placement="bottomRight"
-          arrow={{
-            pointAtCenter: true,
-          }}
-        >
-          <Button>sort Order</Button>
-        </Dropdown>
+        {!displayRecommended && (
+          <Button onClick={showRecommended}>Recommended</Button>
+        )}
+        {displayRecommended && (
+          <Button onClick={showRecommended}>Show All</Button>
+        )}
+
+        <Button onClick={handleSortByRating}>SortBy Rating</Button>
       </div>
     </div>
   );

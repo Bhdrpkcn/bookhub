@@ -6,13 +6,15 @@ const booksSlice = createSlice({
     data: [],
     favorited: JSON.parse(localStorage.getItem("favorites")) || [],
     favGenres: JSON.parse(localStorage.getItem("favGenres")) || [],
-    genreCount: {}, 
+    recommendedBooks: JSON.parse(localStorage.getItem("recBooks")) || [],
+    genreCount: {},
     loading: false,
     error: null,
     searchQuery: "",
     currentPage: 1,
     sortBy: "",
     displayFavorites: false,
+    displayRecommended: false,
   },
 
   reducers: {
@@ -39,7 +41,13 @@ const booksSlice = createSlice({
     },
     setDisplayFavorites: (state) => {
       state.displayFavorites = !state.displayFavorites;
+      state.displayRecommended = false;
     },
+    setDisplayRecommended: (state) => {
+      state.displayRecommended = !state.displayRecommended;
+      state.displayFavorites = false;
+    },
+
     addToFavorites: (state, action) => {
       const { book } = action.payload;
       const bookTitle = book.title;
@@ -48,18 +56,46 @@ const booksSlice = createSlice({
         state.favorited.push(bookTitle);
         localStorage.setItem("favorites", JSON.stringify(state.favorited));
 
-
         const genres = book.genre_list.split(",");
         state.favGenres.push(...genres);
         localStorage.setItem("favGenres", JSON.stringify(state.favGenres));
 
-
         updateGenreCount(state);
 
+        const sortedGenres = Object.entries(state.genreCount).sort(
+          (a, b) => b[1] - a[1]
+        );
 
-        console.log("Updated favorited array:", state.favorited);
-        console.log("Updated favGenres array:", state.favGenres.slice());
-        console.log("Genre count:", state.genreCount);
+        const topThreeGenres = sortedGenres.slice(0, 3).map(([genre]) => genre);
+
+        const updatedRecommendedBooks = [];
+
+        const findHighestRatedBook = (genre) => {
+          return state.data
+            .filter(
+              (book) =>
+                book.genre_list.split(",").includes(genre) &&
+                !state.favorited.includes(book.title) &&
+                !updatedRecommendedBooks.includes(book.title)
+            )
+            .sort((a, b) => b.rating - a.rating)[0];
+        };
+
+        topThreeGenres.forEach((genre) => {
+          const recommendedBook = findHighestRatedBook(genre);
+
+          if (recommendedBook) {
+            updatedRecommendedBooks.push(recommendedBook.title);
+          }
+        });
+
+        state.recommendedBooks = updatedRecommendedBooks;
+        localStorage.setItem(
+          "recBooks",
+          JSON.stringify(state.recommendedBooks)
+        );
+        console.log("Updated favGenres array:", topThreeGenres);
+        console.log("Updated recommendedBooks array:", state.recommendedBooks);
       }
     },
 
@@ -72,25 +108,18 @@ const booksSlice = createSlice({
       );
       localStorage.setItem("favorites", JSON.stringify(state.favorited));
 
-
       const genresToRemove = book.genre_list.split(",");
       state.favGenres = state.favGenres.filter(
         (genre) => !genresToRemove.includes(genre)
       );
       localStorage.setItem("favGenres", JSON.stringify(state.favGenres));
 
-
       updateGenreCount(state);
-
-
-      console.log("Updated favorited array:", state.favorited);
-      console.log("Updated favGenres array:", state.favGenres.slice()); // Convert to plain array
-      console.log("Genre count:", state.genreCount);
     },
 
     removeAllFavorites: (state) => {
       state.favorited = [];
-      state.favGenres = []; 
+      state.favGenres = [];
       localStorage.removeItem("favorites");
       localStorage.removeItem("favGenres");
     },
@@ -108,6 +137,7 @@ export const {
   removeFromFavorites,
   removeAllFavorites,
   setDisplayFavorites,
+  setDisplayRecommended,
 } = booksSlice.actions;
 
 export default booksSlice.reducer;
@@ -116,4 +146,5 @@ const updateGenreCount = (state) => {
   state.genreCount = state.favGenres.reduce((count, genre) => {
     count[genre] = (count[genre] || 0) + 1;
     return count;
-  }, {})};
+  }, {});
+};

@@ -16,15 +16,18 @@ export const fetchBooks = createAsyncThunk(
       dispatch(fetchBooksStart());
 
       const state = getState();
-      const { searchQuery, currentPage, sortBy, displayFavorites } =
-        state.books;
-
-
+      const {
+        searchQuery,
+        currentPage,
+        sortBy,
+        displayFavorites,
+        displayRecommended,
+      } = state.books;
 
       let API_URL = `https://example-data.draftbit.com/books?q=${searchQuery}&_sort=${sortBy}`;
 
       if (!displayFavorites) {
-       API_URL =`${API_URL}&_page=${currentPage}&_limit=${itemsPerPage}`;
+        API_URL = `${API_URL}&_page=${currentPage}&_limit=${itemsPerPage}`;
       }
 
       const response = await fetch(API_URL);
@@ -42,11 +45,21 @@ export const fetchBooks = createAsyncThunk(
         );
 
         dispatch(fetchBooksSuccess(favoritesData));
+      } else if (displayRecommended) {
+        const initialRecommendedBooks = state.books.recommendedBooks;
+        const recommendedBooksData = data.filter((book) =>
+          initialRecommendedBooks.includes(book.title)
+        );
+
+        dispatch(fetchBooksSuccess(recommendedBooksData));
+        dispatch(setCurrentPage(1));
+        dispatch(setSortBy(sortBy));
       } else {
         dispatch(setCurrentPage(currentPage));
         dispatch(setSortBy(sortBy));
         dispatch(fetchBooksSuccess(data));
       }
+      console.log("DisplayRecommend boolean value:", displayRecommended);
 
       return data;
     } catch (error) {

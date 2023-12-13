@@ -9,6 +9,9 @@ const BooksContainer = () => {
   const books = useSelector((state) => state.books);
   const favoritedIds = useSelector((state) => state.books.favorited);
   const displayFavorites = useSelector((state) => state.books.displayFavorites);
+  const displayRecommended = useSelector(
+    (state) => state.books.displayRecommended
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +23,7 @@ const BooksContainer = () => {
     };
 
     fetchData();
-  }, [dispatch, displayFavorites, favoritedIds]);
+  }, [dispatch, displayFavorites, favoritedIds, displayRecommended]);
 
   return (
     <div className="book-container">
