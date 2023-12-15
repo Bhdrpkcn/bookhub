@@ -59,7 +59,6 @@ export const fetchBooks = createAsyncThunk(
         dispatch(setSortBy(sortBy));
         dispatch(fetchBooksSuccess(data));
       }
-      console.log("DisplayRecommend boolean value:", displayRecommended);
 
       return data;
     } catch (error) {

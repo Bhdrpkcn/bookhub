@@ -11,7 +11,7 @@ import {
 } from "../../redux/reducers/bookSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Button, Badge } from "antd";
+import { Button, Badge, Select } from "antd";
 import ChattingGhost from "./ChattingGhost";
 import Logo from "../../utils/logo.png";
 
@@ -24,20 +24,6 @@ const Header = () => {
     (state) => state.books.displayRecommended
   );
   const favoritedCount = useSelector((state) => state.books.favorited.length);
-
-  const handleSortByRating = () => {
-    const queryParams = new URLSearchParams(location.search);
-    const newSort = "rating&_order=desc"; //added order=asc for lowest rating first
-
-    dispatch(setSortBy(newSort));
-
-    queryParams.set("_sortBy", newSort);
-    queryParams.set("_page", "1");
-
-    navigate(`?${queryParams.toString()}`);
-    dispatch(setCurrentPage(1));
-    dispatch(fetchBooks());
-  };
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -67,10 +53,29 @@ const Header = () => {
     dispatch(setDisplayRecommended());
   };
 
+  const handleSortByRating = (value) => {
+    const queryParams = new URLSearchParams(location.search);
+    const newSort = value;
+
+    dispatch(setSortBy(newSort));
+
+    queryParams.set("_sortBy", newSort);
+    queryParams.set("_page", "1");
+
+    navigate(`?${queryParams.toString()}`);
+    dispatch(setCurrentPage(1));
+    dispatch(fetchBooks());
+  };
+
   return (
     <div className="headers">
       <div className="headerBar">
-        <img src={Logo} alt="bookLogo" className="homeLogo" onClick={homeHandler} />
+        <img
+          src={Logo}
+          alt="bookLogo"
+          className="homeLogo"
+          onClick={homeHandler}
+        />
         <ChattingGhost />
         <User />
       </div>
@@ -82,19 +87,28 @@ const Header = () => {
             }}
             count={favoritedCount}
           >
-            <Button onClick={showFavorites}>Favorites</Button>
+            <Button style={{ width: 120 }} onClick={showFavorites}>Favorites</Button>
           </Badge>
         )}
-        {displayFavorites && <Button onClick={showFavorites}>Show All</Button>}
+        {displayFavorites && <Button style={{ width: 120 }} onClick={showFavorites}>Show All</Button>}
 
         {!displayRecommended && (
-          <Button onClick={showRecommended}>Recommended</Button>
+          <Button style={{ width: 130 }} onClick={showRecommended}>Recommended</Button>
         )}
         {displayRecommended && (
-          <Button onClick={showRecommended}>Show All</Button>
+          <Button style={{ width: 130 }}onClick={showRecommended}>Show All</Button>
         )}
 
-        <Button onClick={handleSortByRating}>SortBy Rating</Button>
+        <Select
+          defaultValue="rating&_order=asc"
+          style={{ width: 120 }}
+          
+          onChange={handleSortByRating}
+          options={[
+            { value: "rating&_order=desc", label: "Descending" },
+            { value: "rating&_order=asc", label: "Ascending" },
+          ]}
+        />
       </div>
     </div>
   );

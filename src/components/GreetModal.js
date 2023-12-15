@@ -28,7 +28,7 @@ const GreetModal = ({ onClose }) => {
       <div>{userName ? `Hello, ${userName}!` : "GreetModal"}</div>
       {!userName && (
         <div>
-          <label htmlFor="userName">What is your name?</label>
+          <label htmlFor="userName">{userName}What is your name?</label>
           <input className="greetInput" type="text" id="userName" />
         </div>
       )}
