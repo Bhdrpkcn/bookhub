@@ -143,7 +143,6 @@
   border-color: #fff;
 }
 
-
 .headerBar {
   display: flex;
   flex-direction: row;
@@ -166,6 +165,14 @@
   backdrop-filter: blur(5px);
 
   color: #fff;
+}
+
+.ant-spin {
+  scale: 2;
+}
+.ant-spin .ant-spin-dot-item {
+  scale: 1.2;
+  background-color: gray;
 }
 
 @media only screen and (width < 768px) {

@@ -5,7 +5,6 @@ import {
   setCurrentPage,
   setSearchQuery,
   setSortBy,
-  removeAllFavorites,
   setDisplayFavorites,
   setDisplayRecommended,
 } from "../../redux/reducers/bookSlice";
@@ -24,6 +23,8 @@ const Header = () => {
     (state) => state.books.displayRecommended
   );
   const favoritedCount = useSelector((state) => state.books.favorited.length);
+    const sortBy = useSelector((state) => state.books.sortBy);
+console.log(sortBy)
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -37,13 +38,26 @@ const Header = () => {
     dispatch(fetchBooks());
   }, [location.search, dispatch]);
 
-  const homeHandler = () => {
+
+  const resetHandler = () => {
     dispatch(setCurrentPage(1));
     dispatch(setSearchQuery(""));
-    dispatch(setSortBy(""));
+    setSortBy("");
     navigate(`/`);
-    dispatch(removeAllFavorites());
+    handleSortByRating("");
     dispatch(fetchBooks());
+
+  }
+  const homeHandler = () => {
+    if (displayFavorites) {
+      dispatch(setDisplayFavorites(false));
+      resetHandler()
+    } else if (displayRecommended) {
+      dispatch(setDisplayRecommended(false));
+      resetHandler()
+    } else {
+      resetHandler();
+    }
   };
 
   const showFavorites = () => {
@@ -87,22 +101,31 @@ const Header = () => {
             }}
             count={favoritedCount}
           >
-            <Button style={{ width: 120 }} onClick={showFavorites}>Favorites</Button>
+            <Button style={{ width: 120 }} onClick={showFavorites}>
+              Favorites
+            </Button>
           </Badge>
         )}
-        {displayFavorites && <Button style={{ width: 120 }} onClick={showFavorites}>Show All</Button>}
+        {displayFavorites && (
+          <Button style={{ width: 120 }} onClick={showFavorites}>
+            Show All
+          </Button>
+        )}
 
         {!displayRecommended && (
-          <Button style={{ width: 130 }} onClick={showRecommended}>Recommended</Button>
+          <Button style={{ width: 130 }} onClick={showRecommended}>
+            Recommended
+          </Button>
         )}
         {displayRecommended && (
-          <Button style={{ width: 130 }}onClick={showRecommended}>Show All</Button>
+          <Button style={{ width: 130 }} onClick={showRecommended}>
+            Show All
+          </Button>
         )}
 
-        <Select
+<Select
           defaultValue=""
           style={{ width: 120 }}
-          
           onChange={handleSortByRating}
           options={[
             { value: "", label: "Sort By" },

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../../redux/reduxActions/booksActions";
 import BookCard from "./BookCard";
-import { FloatButton } from "antd";
+import { FloatButton, Spin } from "antd";
 
 const BooksContainer = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const BooksContainer = () => {
 
   return (
     <div className="book-container">
-      {books.loading && <p>Loading...</p>}
+      {books.loading && <Spin size="large" />}
       {books.error && <p>Error: {books.error}</p>}
       {<FloatButton.BackTop />}
       {!books.loading &&

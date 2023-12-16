@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Avatar, Modal, Input, Button } from "antd";
+import { WarningOutlined } from "@ant-design/icons";
 import {
   UserOutlined,
-  EditFilled,
+  LoginOutlined,
   LogoutOutlined,
   CheckOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
+import { removeAllFavorites } from "../../redux/reducers/bookSlice";
 import { setUserName } from "../../redux/reducers/greetingReducer";
 import "./user.css";
 
@@ -22,7 +24,7 @@ const User = () => {
     (state) => state.books.recommendedGenres
   );
 
-  console.log(recommendedGenres)
+  console.log(recommendedGenres);
   const openModal = () => {
     setVisible(true);
   };
@@ -48,6 +50,7 @@ const User = () => {
 
   const handleLogoutClick = () => {
     dispatch(setUserName(""));
+    dispatch(removeAllFavorites());
     setEditMode(false);
   };
 
@@ -77,7 +80,7 @@ const User = () => {
             />
             <div className="userModalSettings">
               {editMode ? (
-                <>
+                <div >
                   <Button
                     icon={<CheckOutlined />}
                     shape="circle"
@@ -88,10 +91,10 @@ const User = () => {
                     shape="circle"
                     onClick={handleAbortSaveClick}
                   />
-                </>
+                </div>
               ) : (
                 <Button
-                  icon={<EditFilled />}
+                  icon={<LoginOutlined />}
                   shape="circle"
                   onClick={handleEditClick}
                 />
@@ -107,6 +110,10 @@ const User = () => {
             {editMode ? (
               <>
                 <Input
+                style={{
+                  marginTop:"4rem",
+                  marginBottom:"8rem"
+                }}
                   className="userInput"
                   value={newUserName}
                   onChange={(e) => setNewUserName(e.target.value)}
@@ -115,13 +122,73 @@ const User = () => {
             ) : (
               <>
                 <h2>{userName}</h2>
-                {userName && <div>{userName}@mockMail.com</div>}
+                {userName && (
+                  <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {userName}@mockMail.com
+                    </div>
+                    <div className="userModalContents">
+                      <h3>Recommended Genres Based on Your Favorites</h3>
+                      <div className="userGenres">
+                        {recommendedGenres.length > 0 ? (
+                          recommendedGenres.map((genre, index) => (
+                            <Button
+                            
+                              style={{
+                                margin: ".2rem",
+                                width: 200,
+                              }}
+                              key={index || genre}
+                            >
+                              {genre}
+                            </Button>
+                          ))
+                        ) : (
+                          <p style={{
+                            color:"crimson"
+                          }}>
+                            Explore personalized genres by adding your favorite
+                            books!
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {!userName && (
+                  <div>
+                    <div className="userModalContents">
+                      <WarningOutlined
+                        style={{
+                          color: "crimson",
+                          scale: "2",
+                        }}
+                      />
+                      <h3
+                        style={{
+                          color: "darkred",
+                        }}
+                      >
+                        You've to login to see recommendations...
+                      </h3>
+                      <div className="userGenres">
+                        <p style={{
+                          color: "darkred",
+                        }}>
+                          Logout will reset the favorited books and
+                          recommendation...
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </>
             )}
-          </div>
-          <div className="userModalContents">
-            <h3>Recommended Genres Based on Your Favorites</h3>
-            <h4>Book contents</h4>
           </div>
         </div>
       </Modal>
