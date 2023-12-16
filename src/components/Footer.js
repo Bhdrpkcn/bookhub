@@ -12,6 +12,10 @@ const Footer = () => {
   const location = useLocation();
   const currentPage = useSelector((state) => state.books.currentPage);
   const maxPageCount = 240 / itemsPerPage;
+  const displayFavorites = useSelector((state) => state.books.displayFavorites);
+  const displayRecommended = useSelector(
+    (state) => state.books.displayRecommended
+  );
 
   const handlePageChange = (newPage) => {
     if (newPage < 1 || newPage > maxPageCount) {
@@ -26,17 +30,20 @@ const Footer = () => {
     dispatch(fetchBooks());
   };
 
-
   return (
     <div className="footer">
       <div className="footerContainer">
-        <Pagination
-          current={currentPage}
-          pageSize={itemsPerPage}
-          total={maxPageCount * itemsPerPage}
-          onChange={handlePageChange}
-          showSizeChanger={false}
-        />
+        {displayFavorites || displayRecommended ? (
+          <span>bookHUB</span>
+        ) : (
+          <Pagination
+            current={currentPage}
+            pageSize={itemsPerPage}
+            total={maxPageCount * itemsPerPage}
+            onChange={handlePageChange}
+            showSizeChanger={false}
+          />
+        )}
       </div>
     </div>
   );

@@ -5,8 +5,9 @@ const booksSlice = createSlice({
   initialState: {
     data: [],
     favorited: JSON.parse(localStorage.getItem("favorites")) || [],
-    favGenres: JSON.parse(localStorage.getItem("favGenres")) || [],
     recommendedBooks: JSON.parse(localStorage.getItem("recBooks")) || [],
+    favGenres: JSON.parse(localStorage.getItem("favGenres")) || [],
+    recommendedGenres: JSON.parse(localStorage.getItem("recGenres")) || [],
     genreCount: {},
     loading: false,
     error: null,
@@ -94,8 +95,12 @@ const booksSlice = createSlice({
           "recBooks",
           JSON.stringify(state.recommendedBooks)
         );
-        console.log("Updated favGenres array:", topThreeGenres);
-        console.log("Updated recommendedBooks array:", state.recommendedBooks);
+
+        state.recommendedGenres = topThreeGenres;
+        localStorage.setItem(
+          "recGenres",
+          JSON.stringify(state.recommendedGenres)
+        );
       }
     },
 
@@ -120,8 +125,12 @@ const booksSlice = createSlice({
     removeAllFavorites: (state) => {
       state.favorited = [];
       state.favGenres = [];
+      state.recommendedBooks = [];
+      state.recommendedGenres = [];
       localStorage.removeItem("favorites");
       localStorage.removeItem("favGenres");
+      localStorage.removeItem("recGenres");
+      localStorage.removeItem("recBooks");
     },
   },
 });

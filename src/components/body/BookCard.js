@@ -16,6 +16,7 @@ const BookCard = ({ book }) => {
   const isBookFavorited = useSelector(state => state.books.favorited.includes(book.title));
 
   const handleToggleFavorite = () => {
+    
     if (isBookFavorited) {
       dispatch(removeFromFavorites({ book }));
     } else {

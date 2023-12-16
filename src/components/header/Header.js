@@ -100,11 +100,12 @@ const Header = () => {
         )}
 
         <Select
-          defaultValue="rating&_order=asc"
+          defaultValue=""
           style={{ width: 120 }}
           
           onChange={handleSortByRating}
           options={[
+            { value: "", label: "Sort By" },
             { value: "rating&_order=desc", label: "Descending" },
             { value: "rating&_order=asc", label: "Ascending" },
           ]}

@@ -23,7 +23,7 @@ const BooksContainer = () => {
     };
 
     fetchData();
-  }, [dispatch, displayFavorites, favoritedIds, displayRecommended]);
+  }, [dispatch, displayFavorites, displayRecommended]);
 
   return (
     <div className="book-container">
