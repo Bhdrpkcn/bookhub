@@ -34,7 +34,10 @@ const Footer = () => {
     <div className="footer">
       <div className="footerContainer">
         {displayFavorites || displayRecommended ? (
-          <span>bookHUB</span>
+          <span style={{
+            color:"lightgrey",
+            fontSize:"12px"
+          }}>bookHUB</span>
         ) : (
           <Pagination
             current={currentPage}

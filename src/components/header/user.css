@@ -10,7 +10,7 @@
   background: linear-gradient(
     to bottom,
     rgb(181, 180, 180),
-    rgba(0, 0, 0, 0.5)
+    rgba(100, 100, 100, 0.7)
   );
   border-radius: 8px;
 }

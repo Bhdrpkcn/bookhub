@@ -180,8 +180,8 @@ const User = () => {
                         <p style={{
                           color: "darkred",
                         }}>
-                          Logout will reset the favorited books and
-                          recommendation...
+                          Logout will reset your favorited books and
+                          recommendations...
                         </p>
                       </div>
                     </div>
