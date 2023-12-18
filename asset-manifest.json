@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/bookhub/static/css/main.650be4d7.css",
+    "main.js": "/bookhub/static/js/main.b4cbdd2f.js",
+    "static/js/787.cf214e3e.chunk.js": "/bookhub/static/js/787.cf214e3e.chunk.js",
+    "static/media/background.png": "/bookhub/static/media/background.68e3a6ff49c8b415bf69.png",
+    "static/media/logo.png": "/bookhub/static/media/logo.1d60c91bad28121b6570.png",
+    "index.html": "/bookhub/index.html",
+    "main.650be4d7.css.map": "/bookhub/static/css/main.650be4d7.css.map",
+    "main.b4cbdd2f.js.map": "/bookhub/static/js/main.b4cbdd2f.js.map",
+    "787.cf214e3e.chunk.js.map": "/bookhub/static/js/787.cf214e3e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.650be4d7.css",
+    "static/js/main.b4cbdd2f.js"
+  ]
+}
